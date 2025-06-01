@@ -1,10 +1,13 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../config/sequelize.js';
-//id, nome, 
+//id, 
+// nome, 
 // data_nascimento, 
 // responsavel_financeiro, 
 // plano_pagamento,
-//  turma_id.
+//  id_turma.
+//data_matricula
+//status
 const Aluno = sequelize.define('Aluno',{
     id:{
         type:DataTypes.INTEGER,
@@ -28,7 +31,13 @@ const Aluno = sequelize.define('Aluno',{
         allowNull: false,
         validate: {
         isIn: [['mensal', 'trimestral', 'anual']]
+     },
+     id_turma:{
+        type:DataTypes.INTEGER,
+        references:{
+            model:'turmas',
+            key:'id'
+        }
      }
-     //falta a coluna turma_id !!!
 }
 })
