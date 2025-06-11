@@ -5,6 +5,7 @@
 - **Lucas Henrique** – RA: 6324537  
 - **Jefferson Nascimento** – RA: 6324617  
 - **Marcelo Luis dos Santos** – RA: 6324637  
+- **Vinicius Gigante** – RA: 6324558  
 
 ## 📋 Descrição
 
