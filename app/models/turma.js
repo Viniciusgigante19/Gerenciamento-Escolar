@@ -8,7 +8,7 @@ const Turma = sequelize.define('Turma',{
         autoIncrement:true
     },
     nome:{
-        type:DataTypes.STRING,
+        type:DataTypes.STRING, // Exemplo : 2°B , 1°A.
         allowNull:false
     },
     ano_letivo:{

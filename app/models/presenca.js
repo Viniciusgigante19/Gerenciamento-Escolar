@@ -11,7 +11,7 @@ const Presenca = sequelize.define('Presenca', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'alunos',  // nome da tabela alunos
+      model: 'alunos',  
       key: 'id'
     },
     onUpdate: 'CASCADE',

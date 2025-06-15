@@ -17,7 +17,7 @@ const Atividade = sequelize.define('Atividade', {
   },
   id_turma: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     references: {
       model: 'turmas', // deve bater com o nome real da tabela definido em Turma.js
       key: 'id'
