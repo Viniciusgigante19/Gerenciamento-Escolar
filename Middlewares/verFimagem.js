@@ -20,3 +20,4 @@ export default (request, response, next) => {
     return next();
 
 }
+import CONSTANTS from '../constants.js';
