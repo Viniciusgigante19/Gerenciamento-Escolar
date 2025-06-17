@@ -1,0 +1,19 @@
+from node:18-alpine AS build
+
+WORDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+copy . .
+
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY --FROM=build /app /app
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
