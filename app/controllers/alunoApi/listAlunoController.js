@@ -1,12 +1,12 @@
 // Esse arquivo é o controller, ele faz o intermádio entre a api e o model
 
-import AlunoModel from '../../models/alunoModel';
+import AlunoModel from '../../models/aluno.js';
 // 🔗 Importações dos models relacionados com aluno: Responsável e Turma
-import ResponsavelModel from '../../models/responsavelModel';
-import TurmaModel from '../../models/turmaModel';
+import ResponsavelModel from '../../models/responsavelAluno.js';
 
 // ⚙️ Importação das constantes de configuração do projeto (status HTTP, limites, etc)
-import CONSTANTS from '../../utils/constants';
+import CONSTANTS from '../../../config/constants.js';
+
 
 export default async (request, response) => {
 
@@ -38,10 +38,7 @@ export default async (request, response) => {
                     model: ResponsavelModel,
                     as: "responsavel"
                 },
-                {
-                    model: TurmaModel,
-                    as: "turma"
-                }
+
             ]
         });
 
