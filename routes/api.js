@@ -12,6 +12,8 @@ export default (function() {
     //rota para api de aluno
     router.use('/', alunoApi)
 
-    //rota para api de atividades
-    router.use('/', atividadeApi)
+        //rota para api de atividades
+        router.use('/', atividadeApi)
     
+        return router;
+    })();
