@@ -2,11 +2,12 @@ import express from 'express';
 import chalk from 'chalk';
 
 import "./bootstrap/app.js";
-import webRoutes from './routes/web.js'
+import routes from './routes/routes.js'
 
 const app = express();
+app.use(express.json());
 
-app.use("/",webRoutes);
+app.use("/",routes);
 
 console.log(process.env.IS_CONTAINER);
 
@@ -16,4 +17,5 @@ const nodePort = process.env.NODE_PORT || webPort;
 
 app.listen(nodePort,() => {
     console.log(chalk.green(`Servidor: http://localhost:${webPort}`));
+    console.log(chalk.yellow(`Apis Swagger: http://localhost:${webPort}/docs`));
 })

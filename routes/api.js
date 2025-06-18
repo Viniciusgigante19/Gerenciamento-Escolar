@@ -15,4 +15,3 @@ export default (function() {
     //rota para api de atividades
     router.use('/', atividadeApi)
     
-})();
