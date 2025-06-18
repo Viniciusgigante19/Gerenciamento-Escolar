@@ -4,6 +4,7 @@ import ListAlunosController from '../../app/controllers/alunoApi/listAlunoContro
 import GetAlunoController from '../../app/controllers/alunoApi/GetAlunoController.js'
 import InsertAlunoController from '../../app/controllers/alunoApi/insertAlunoController.js'
 import UpdateAlunoController from '../../app/controllers/alunoApi/updateAlunoController.js'
+import DeleteAlunoController from '../../app/controllers/alunoApi/deleteAlunoController.js'
 
 //o link alunoApi importa o codgo abaixo
 //aperte CONTROL e clique no link depois do caminho '/...' e sigua o fluxo.
