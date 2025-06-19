@@ -4,10 +4,7 @@ FROM node:24
 # Diretório de trabalho dentro do container
 WORKDIR /app
 
-# Instala o cliente PostgreSQL para ter o comando pg_isready
-RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
-
-# Copia os arquivos de dependências para instalar rapidamente (cache eficiente)
+# Copia os arquivos de dependências
 COPY package*.json ./
 
 # Instala dependências globais e locais
@@ -16,14 +13,7 @@ RUN npm install -g nodemon && npm install
 # Copia o restante dos arquivos da aplicação
 COPY . .
 
-# Copia o script wait-for-it para aguardar o Postgres
-COPY docker/wait-for-it.sh /usr/local/bin/wait-for-it.sh
-RUN chmod +x /usr/local/bin/wait-for-it.sh
-
 # Expõe a porta que o app usa (exemplo 3000)
 EXPOSE 3000
 
-# Comando padrão para rodar o app, esperando o Postgres estar pronto
-ENTRYPOINT ["wait-for-it.sh", "postgres", "--", "npm", "run", "dev"]
-
-# ENTRYPOINT ["wait-for-it.sh", "postgres:5432", "--", "npm", "run", "dev"]
+CMD ["npm", "run", "dev"]

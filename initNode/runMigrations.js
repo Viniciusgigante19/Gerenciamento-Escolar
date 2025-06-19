@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 import path from 'path';
 import { readdir } from 'fs/promises';
 
-import sequelize from './config/sequelize.js';
+import sequelize from '../config/sequelize.js';
 
 export default async function()
 {

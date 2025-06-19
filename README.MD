@@ -50,3 +50,8 @@ docker-compose up --build -d
 ### 4. Acessar a aplicação
 Abra o navegaodor e acesse :
 http://localhost
+
+### Acessar o conteiner POSTGRES :
+```sh
+ docker exec -it postgres-db psql -U meu_usuario -d minha_base
+```
