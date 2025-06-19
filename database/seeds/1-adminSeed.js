@@ -8,21 +8,21 @@ export async function up(queryInterface, Sequelize) {
 
   await queryInterface.bulkInsert('Admins', [
     {
-      nome: 'Admin Um',
+      nome: 'Admin1',
       email: 'admin1@example.com',
       senha: senhaHash1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
     {
-      nome: 'Admin Dois',
+      nome: 'Admin2',
       email: 'admin2@example.com',
       senha: senhaHash2,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
     {
-      nome: 'Admin Três',
+      nome: 'Admin3',
       email: 'admin3@example.com',
       senha: senhaHash3,
       createdAt: new Date(),

@@ -3,19 +3,35 @@ import chalk from 'chalk';
 import initRelations from './config/sequelize_relations.js';
 import "./bootstrap/app.js";
 import routes from './routes/routes.js'
+import runMigrations from './runMigrations.js';
+import runSeeds from './runSeeds.js';
 
-const app = express();
-app.use(express.json());
+async function startServer()
+{
+    try{
+        initRelations();
 
-app.use("/",routes);
+        await runMigrations();
 
-initRelations();
+        await runSeeds();
 
-const webPort = process.env.PORT || 3000;
 
-const nodePort = process.env.NODE_PORT || webPort;
+        const app = express();
+        app.use(express.json());
 
-app.listen(nodePort,() => {
-    console.log(chalk.green(`Servidor: http://localhost:${webPort}`));
-    console.log(chalk.yellow(`Apis Swagger: http://localhost:${webPort}/docs`));
-})
+        app.use("/",routes);
+
+        const webPort = process.env.PORT || 3000;
+
+        const nodePort = process.env.NODE_PORT || webPort;
+
+        app.listen(nodePort,() => {
+            console.log(chalk.green(`Servidor: http://localhost:${webPort}`));
+        })
+    } catch (error) {
+        console.error(chalk.red('Error starting the server:'), error);
+        process.exit(1); // Exit the process with failure
+    }
+}
+
+startServer();

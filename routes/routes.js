@@ -1,15 +1,15 @@
-import express from 'express';
-import { Router } from 'express';
-import LoginJwtController from '../app/Middlewares/';
+// import express from 'express';
+// import { Router } from 'express';
+// import LoginJwtController from '../app/Middlewares/';
 
-export default (function()
-{
-    const router = Router();
+// export default (function()
+// {
+//     const router = Router();
 
-    router.use(express.json());
+//     router.use(express.json());
 
-    //Api
+//     //Api
 
-    router.post('/login',)
-}
-());
+//     router.post('/login',)
+// }
+// ());
