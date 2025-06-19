@@ -6,14 +6,14 @@ import { Router } from 'express';
 import alunoApi from './api/alunoApi.js'
 import atividadeApi from './api/atividade.js';
 
-export default (function() {
+export default function() {
     const router = Router()
     
-<<<<<<< HEAD
     //rota para api de aluno
     router.use('/', alunoApi)
 
     //rota para api de atividades
     router.use('/', atividadeApi)
+
     
-})();
+};

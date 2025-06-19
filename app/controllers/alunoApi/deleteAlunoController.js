@@ -1,30 +1,24 @@
 import AlunoModel from '../../models/aluno.js';
+// ⚙️ Importação das constantes de configuração do projeto (status HTTP, limites, etc)
+import CONSTANTS from '../../../config/constants.js';
 
-export default async (request, response) => {
+export default async (req, res) => {
 
-    const HTTP_STATUS = CONSTANTS.HTTP;
+    try{
+    const {id} = req.params;
 
-    const id = request.params.id;
+    const aluno = await AlunoModel.findByPk(id);
 
-    try {
+    if (!aluno) {
+        return res.status(401).json({mensage: 'Aluno não encontrado.'})
+    }
 
-        const rowsDeleted = await AlunoModel.destroy({
-            where: {
-                id: id
-            }
-        });
+    await aluno.destroy();
 
-        if (rowsDeleted === 0) {
-            return response.status(HTTP_STATUS.NOT_FOUND).json({ error: `Aluno com id ${id} não existe!` });
-        }
-
-        return response.status(HTTP_STATUS.SUCCESS_NO_CONTENT).send();
-
-    } catch (error) {
-
-        console.log(error);
-        return response.status(HTTP_STATUS.SERVER_ERROR).json({ error: 'Error de servidor.' });
-
+    return res.status(200).json({mensage: 'Aluno deletado com succeso'});
+    }catch(erro){
+        console.error('Erro ao deletar aluno', erro);
+        return res.status(500).json({mensage: 'Erro interno do servidor'})        
     }
 
 };
