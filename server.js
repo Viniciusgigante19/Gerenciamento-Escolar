@@ -1,6 +1,6 @@
 import express from 'express';
 import chalk from 'chalk';
-
+import initRelations from './config/sequelize_relations.js';
 import "./bootstrap/app.js";
 import routes from './routes/routes.js'
 
@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use("/",routes);
 
-console.log(process.env.IS_CONTAINER);
+initRelations();
 
 const webPort = process.env.PORT || 3000;
 
