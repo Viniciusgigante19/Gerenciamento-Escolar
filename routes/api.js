@@ -9,6 +9,7 @@ import atividadeApi from './api/atividade.js';
 export default (function() {
     const router = Router()
     
+<<<<<<< HEAD
     //rota para api de aluno
     router.use('/', alunoApi)
 
