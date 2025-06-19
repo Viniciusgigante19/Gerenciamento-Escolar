@@ -18,3 +18,5 @@ const Turma = sequelize.define('Turma',{
 },{
         tableName:'turmas'
     });
+
+export default Turma;

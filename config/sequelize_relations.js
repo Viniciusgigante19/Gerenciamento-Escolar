@@ -5,7 +5,6 @@ import presenca from '../app/models/presencaModel.js';
 import turma from '../app/models/turmaModel.js';
 import responsavelAluno from '../app/models/responsavelAlunoModel.js';
 
-
 export default () => {
     // Aluno - Turma (N-1)
     turma.hasMany(aluno, {

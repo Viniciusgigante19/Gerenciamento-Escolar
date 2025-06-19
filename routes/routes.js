@@ -1,15 +1,13 @@
-// import express from 'express';
-// import { Router } from 'express';
-// import LoginJwtController from '../app/Middlewares/';
+import express, { Router } from 'express';
 
-// export default (function()
-// {
-//     const router = Router();
+export default (function () {
+  const router = Router();
 
-//     router.use(express.json());
+  router.use(express.json());
 
-//     //Api
+  router.post('/login', (req, res) => {
+    res.send('Login endpoint rodando!');
+  });
 
-//     router.post('/login',)
-// }
-// ());
+  return router;
+})();

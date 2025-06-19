@@ -21,8 +21,6 @@ export default async function()
     }
     console.log('Migrations executadas com sucesso!');
     }catch (error) {
-        console.error('Erro ao executar migrations:', err);
+        console.error('Erro ao executar migrations:', error);
     }
 };
-
-runMigrations();
