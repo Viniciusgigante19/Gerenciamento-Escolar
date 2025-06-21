@@ -1,4 +1,4 @@
-import AlunoModel from '../../models/aluno.js';
+import AlunoModel from '../../models/alunoModel.js';
 // ⚙️ Importação das constantes de configuração do projeto (status HTTP, limites, etc)
 import CONSTANTS from '../../../config/constants.js';
 

@@ -15,7 +15,7 @@ export default (function () {
         res.sendFile(path.join(CONSTANTS.DIR, 'public', 'index.html'));
     });
 
-    router.use('/', api);
+    router.use('/', api());
 
     router.use((req, res) => {
         res.status(CONSTANTS.HTTP.NOT_FOUND).json({ error: "Not found" });

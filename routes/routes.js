@@ -10,8 +10,6 @@ export default (function () {
 
   router.use(express.json());
 
-  router.use('/api',JwtAuthController,LogMiddleware,api())
-
   router.post('/login',loginJwt); 
   // Efetua o login verificando a existencia 
   // email e senha do usuario no banco;
@@ -19,6 +17,9 @@ export default (function () {
   router.post('/registrar',registrarUser);
   // Registra um novo usuario no banco de dados
   // inserindo email e senha;
+
+  // Rota protegida - Vem depois da altenticação
+    router.use('/api',JwtAuthController,LogMiddleware,api())
 
   return router;
 })();
