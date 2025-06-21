@@ -1,10 +1,10 @@
-import aluno from '../../models/alunoModel.js';
+import Aluno from '../../models/alunoModel.js';
 
 export default async function GetTodosAlunosController(req, res) {
     try {
         const { turmaId } = req.params;
 
-        const alunos = await aluno.findAll({
+        const alunos = await Aluno.findAll({
             where: { id_turma: turmaId }  // Usa o campo correto do banco
         });
 

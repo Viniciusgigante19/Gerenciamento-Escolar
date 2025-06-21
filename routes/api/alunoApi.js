@@ -1,7 +1,9 @@
 //esse arquivo de rotas 'alunoApi' contem rotas para o controller, por sua vez tem rotas para as models, que interage com banco de dados
-import GetAlunoController from '../../app/controllers/consultarAluno/getAlunoId.js'
+import getAluno from '../../app/controllers/consultarAluno/getAluno.js'
 import getAlunoByTurma from '../../app/controllers/consultarAluno/getAlunoTurma.js';
-import GetTodosAlunosController from '../../app/controllers/consultarAluno/getTodosAlunos.js';
+import getTodosAlunos from '../../app/controllers/consultarAluno/getTodosAlunos.js';
+import insertAluno from '../../app/controllers/consultarAluno/insertAluno.js';
+import updateAluno from '../../app/controllers/consultarAluno/updateAluno.js';
 import { Router } from "express";
 
 //o link alunoApi importa o codgo abaixo
@@ -9,11 +11,16 @@ import { Router } from "express";
 const router = Router();
 
 
-router.get('/aluno/:id', GetAlunoController ); //funciona!
+router.post('/aluno', getAluno); //Busca aluno ou pelo nome ou pelo id
 
-router.get('/alunos',GetTodosAlunosController); //funciona!
+router.get('/alunos',getTodosAlunos); //Retorna todos os alunos
 
-router.get('/alunos/turma/:nomeTurma', getAlunoByTurma); //funciona!
+router.get('/alunos/turma/:nomeTurma', getAlunoByTurma); //Busca alunos por turma
 
+router.put('/aluno/:id', updateAluno); //Atualiza os dados do aluno
+
+router.post('/aluno', insertAluno); 
+//Insere um novo aluno, se ele tiver responsavel financeiro este
+// ja deve estar cadastrado no banco de dados antes do aluno! 
 
 export default router;

@@ -62,7 +62,7 @@ GET http://localhost:3000/api/aluno/1
 
 ## Retornar um aluno.
 
-GET http://localhost:3000/api/aluno/<numero-id-do-aluno> ex:(1,2,3...)
+POST http://localhost:3000/api/aluno/<numero-id-do-aluno><ou><nome-do-aluno>
 
 AUTH -- BEARER TOKEN :
 

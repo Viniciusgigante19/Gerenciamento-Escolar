@@ -35,7 +35,7 @@ const Aluno = sequelize.define('Aluno', {
       model: 'responsaveis',
       key: 'id',
     },
-    allowNull: true, 
+    allowNull: true, //OBS: se ficar vazio significa que o aluno é o próprio responsável financeiro, ele se banca
   },
   data_matricula: {
     type: DataTypes.DATEONLY,
