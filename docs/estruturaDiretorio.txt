@@ -1,0 +1,85 @@
+Gerenciamento-Escolar
+ ┣ app
+ ┃ ┣ controllers
+ ┃ ┃ ┣ alunoApi
+ ┃ ┃ ┃ ┣ deleteAlunoController.js
+ ┃ ┃ ┃ ┣ GetAlunoController.js
+ ┃ ┃ ┃ ┣ insertAlunoController.js
+ ┃ ┃ ┃ ┣ listAlunoController.js
+ ┃ ┃ ┃ ┗ updateAlunoController.js
+ ┃ ┃ ┗ atividadesApi
+ ┃ ┃ ┃ ┣ DeleteAtividadeController.js
+ ┃ ┃ ┃ ┣ GetAtividadeController.js
+ ┃ ┃ ┃ ┣ InsertAtividadeController.js
+ ┃ ┃ ┃ ┗ UpdateAtividadeController.js
+ ┃ ┣ Middlewares
+ ┃ ┃ ┣ aut.js
+ ┃ ┃ ┣ login.js
+ ┃ ┃ ┣ LoginJwtController.js
+ ┃ ┃ ┗ verFimagem.js
+ ┃ ┗ models
+ ┃ ┃ ┣ adminModel.js
+ ┃ ┃ ┣ alunoAtividadeModel.js
+ ┃ ┃ ┣ alunoModel.js
+ ┃ ┃ ┣ atividadeModel.js
+ ┃ ┃ ┣ pagamentoModel.js
+ ┃ ┃ ┣ presencaModel.js
+ ┃ ┃ ┣ responsavelAlunoModel.js
+ ┃ ┃ ┗ turmaModel.js
+ ┣ bootstrap
+ ┃ ┗ app.js
+ ┣ config
+ ┃ ┣ constants.js
+ ┃ ┣ db.js
+ ┃ ┣ sequelize.js
+ ┃ ┗ sequelize_relations.js
+ ┣ database
+ ┃ ┣ migrations
+ ┃ ┃ ┣ 1-adminMigration.js
+ ┃ ┃ ┣ 2-turmaMigration.js
+ ┃ ┃ ┣ 3-responsavelMigration.js
+ ┃ ┃ ┣ 4-alunoMigration.js
+ ┃ ┃ ┣ 5-atividadeMigration.js
+ ┃ ┃ ┣ 6-presencaMigration.js
+ ┃ ┃ ┗ 7-pagamentoMigration.js
+ ┃ ┗ seeds
+ ┃ ┃ ┣ 1-adminSeed.js
+ ┃ ┃ ┣ 2-turmaSeed.js
+ ┃ ┃ ┣ 3-responsavelSeed.js
+ ┃ ┃ ┣ 4-alunoSeed.js
+ ┃ ┃ ┣ 5-pagamentoSeed.js
+ ┃ ┃ ┗ 6-presencaSeed.js
+ ┣ docker
+ ┃ ┣ node
+ ┃ ┃ ┗ dockerfile
+ ┃ ┗ postgres
+ ┃ ┃ ┗ init
+ ┃ ┃ ┃ ┣ 01-migrations.sql
+ ┃ ┃ ┃ ┗ 02-seeds.sql
+ ┣ docs
+ ┃ ┣ DER-EscolaInfantil.png
+ ┃ ┣ estruturaDiretorio.txt
+ ┃ ┗ MER-EscolarInfantil.png
+ ┣ initNode
+ ┃ ┣ runMigrations.js
+ ┃ ┗ runSeeds.js
+ ┣ nginx
+ ┃ ┣ default.conf
+ ┃ ┗ Dockerfile
+ ┣ public
+ ┃ ┗ index.html
+ ┣ routes
+ ┃ ┣ api
+ ┃ ┃ ┣ alunoApi.js
+ ┃ ┃ ┗ atividade.js
+ ┃ ┣ api.js
+ ┃ ┣ routes.js
+ ┃ ┗ web.js
+ ┣ .env
+ ┣ .gitignore
+ ┣ docker-compose.yml
+ ┣ package-lock.json
+ ┣ package.json
+ ┣ README.MD
+ ┣ server.js
+ ┗ wait-for-it.js
