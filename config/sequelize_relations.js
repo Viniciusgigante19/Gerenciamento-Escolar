@@ -27,12 +27,12 @@ export default () => {
     });
   
     // Aluno - Responsável (1-1)
-    responsavelAluno.hasOne(aluno, {
-      foreignKey: 'id_responsavel',
+    responsavelAluno.hasMany(aluno, {
+      foreignKey: 'responsavel_id',
       as: 'aluno'
     });
     aluno.belongsTo(responsavelAluno, {
-      foreignKey: 'id_responsavel',
+      foreignKey: 'responsavel_id',
       as: 'responsavel'
     });
   
@@ -55,5 +55,4 @@ export default () => {
       foreignKey: 'id_aluno',
       as: 'aluno'
     });
-  };
-  
+  }; 

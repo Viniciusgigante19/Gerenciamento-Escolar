@@ -1,8 +1,8 @@
 // Esse arquivo é o controller, ele faz o intermádio entre a api e o model
 
-import AlunoModel from '../../models/aluno.js';
+import AlunoModel from '../../models/alunoModel.js';
 // 🔗 Importações dos models relacionados com aluno: Responsável e Turma
-import ResponsavelModel from '../../models/responsavelAluno.js';
+import ResponsavelModel from '../../models/responsavelAlunoModel.js';
 
 // ⚙️ Importação das constantes de configuração do projeto (status HTTP, limites, etc)
 import CONSTANTS from '../../../config/constants.js';
