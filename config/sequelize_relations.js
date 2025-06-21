@@ -29,7 +29,7 @@ export default () => {
     // Aluno - Responsável (1-1)
     responsavelAluno.hasMany(aluno, {
       foreignKey: 'responsavel_id',
-      as: 'aluno'
+      as: 'alunos'
     });
     aluno.belongsTo(responsavelAluno, {
       foreignKey: 'responsavel_id',

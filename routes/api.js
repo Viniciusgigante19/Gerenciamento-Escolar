@@ -15,7 +15,7 @@ export default function() {
 
     router.use('/', alunoApi);
     router.use('/', atividadeApi);
-    router.use('/', )
+    router.use('/', responsavelApi)
 
     return router; // ✅ ESSENCIAL
 }

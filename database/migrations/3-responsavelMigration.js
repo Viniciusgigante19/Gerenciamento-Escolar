@@ -15,6 +15,9 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING,
       allowNull: true,
     },
+    rg: {
+      
+    },
   });
 }
 

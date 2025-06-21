@@ -19,6 +19,11 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.DATEONLY,
       allowNull: true,
     },
+    rg: {
+      type: Sequelize.STRING(9), // Aceita até 9 caracteres para RG
+      allowNull: false,
+      unique: true,
+    },
     plano_pagamento: {
       type: 'enum_alunos_plano_pagamento',
       allowNull: false,
