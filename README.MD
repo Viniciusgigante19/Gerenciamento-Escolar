@@ -30,7 +30,7 @@ Siga os passos abaixo para clonar e executar o projeto localmente:
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/Viniciusgigante1/Gerenciamento-Escolar`
+git clone https://github.com/Viniciusgigante1/Gerenciamento-Escolar
 ```
 
 ### 2. acessar a pasta do projeto
