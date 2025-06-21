@@ -60,6 +60,30 @@ GET http://localhost:3000/api/aluno/1
 	}
 }
 
+## Retornar um aluno.
+
+GET http://localhost:3000/api/aluno/<numero-id-do-aluno> ex:(1,2,3...)
+
+AUTH -- BEARER TOKEN :
+
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.                                                 eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTA1MTcxMjYsImV4cCI6MTc1MDUxODMyNn0. V2EpnYmrOnibIIpu6-YQmIyWDYUEJnskaJ1vaQSKN2k
+
+## Retornar todos os alunos.
+
+GET http://localhost:3000/api/alunos
 
 
-## Adicionar Aluno (não consegui adicionar, talvez porque tem que adicionar um responsável primeiro. depois adiciona aluno com o id do responsavel)
+AUTH -- BEARER TOKEN :
+
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.                                                 eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTA1MTcxMjYsImV4cCI6MTc1MDUxODMyNn0. V2EpnYmrOnibIIpu6-YQmIyWDYUEJnskaJ1vaQSKN2k
+
+
+## Retornar todos os alunos de uma turma especifica.
+
+GET http://localhost:3000/api/alunos/turma/<nome-da-turma> ex:( 1-A,  2°b, 3B)
+
+!!! Lembre-se de usar uma turma que exista !!! Consulte o seed de Turma para verifica-lo!
+
+AUTH -- BEARER TOKEN :
+
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.                                                 eyJpZCI6MSwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTA1MTcxMjYsImV4cCI6MTc1MDUxODMyNn0. V2EpnYmrOnibIIpu6-YQmIyWDYUEJnskaJ1vaQSKN2k

@@ -19,7 +19,7 @@ export default async (req, res) =>
         const newUser = await Admin.create({
             nome,
             email,
-            senha: password // Certifique-se de hashear a senha antes de armazená-la
+            senha: password
         });
 
         return res.status(201).json({ message: 'Usuário registrado com sucesso.', user: newUser });
