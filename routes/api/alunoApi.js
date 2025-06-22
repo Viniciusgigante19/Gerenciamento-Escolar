@@ -13,11 +13,11 @@ const router = Router();
 
 router.post('/aluno', getAluno); //Busca aluno ou pelo nome ou pelo id
 
-router.get('/alunos',getTodosAlunos); //Retorna todos os alunos
+router.get('/aluno/alunos',getTodosAlunos); //Retorna todos os alunos
 
-router.get('/alunos/turma/:nomeTurma', getAlunoByTurma); //Busca alunos por turma
+router.get('/aluno/turma/:nomeTurma', getAlunoByTurma); //Busca alunos por turma
 
-router.put('/aluno/:id', updateAluno); //Atualiza os dados do aluno
+router.put('/aluno', updateAluno); //Atualiza os dados do aluno
 
 router.post('/aluno', insertAluno); 
 //Insere um novo aluno, se ele tiver responsavel financeiro este

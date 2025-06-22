@@ -1,5 +1,5 @@
 import aluno from '../../models/alunoModel.js';
-import responsavel from '../../models/responsavelModel.js';
+import responsavel from '../../models/responsavelAlunoModel.js';
 
 export default async function InsertAluno(req, res) {
   const { nome, data_nascimento, plano_pagamento, id_turma, responsavelNome, data_matricula, status } = req.body;
