@@ -2,7 +2,7 @@ import Presenca from '../../models/presencaModel.js';
 
 export default async function deletePresenca(req, res) {
   try {
-    const { id_aluno } = req.params;
+    const { alunoId } = req.params;
     const { data } = req.query;
 
     if (!data) {
@@ -11,7 +11,7 @@ export default async function deletePresenca(req, res) {
 
     const presenca = await Presenca.findOne({
       where: {
-        id_aluno,
+        id_aluno: alunoId,
         data_presenca: data
       }
     });

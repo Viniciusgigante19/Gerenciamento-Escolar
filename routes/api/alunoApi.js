@@ -18,7 +18,7 @@ router.get('/aluno/alunos',getTodosAlunos); //Retorna todos os alunos
 router.get('/alunos/turma/:ano/:classe', getAlunoByTurma); //Busca alunos por turma 
 // http://localhost:3000/api/alunos/turma/3/c
 
-router.put('/aluno', updateAluno); //Atualiza os dados do aluno 
+router.put('/aluno/:id', updateAluno); //Atualiza os dados do aluno 
 
 router.post('/aluno', insertAluno);  
 //Insere um novo aluno, se ele tiver responsavel financeiro este

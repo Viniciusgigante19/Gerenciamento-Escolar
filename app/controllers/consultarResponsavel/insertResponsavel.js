@@ -10,6 +10,11 @@ export default async function insertResponsavel(req, res) {
             responsavel: novoResponsavel
         });
     } catch (error) {
-        res.status(500).json({ mensagem: "Erro ao cadastrar responsável.", erro: error.message });
-    }
+  console.error(error);
+  res.status(500).json({
+    mensagem: "Erro ao cadastrar responsável.",
+    erro: error.message,
+    detalhes: error.errors // array de erros de validação, se houver
+  });
+}
 }

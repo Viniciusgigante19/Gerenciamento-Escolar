@@ -2,18 +2,25 @@ import Presenca from '../../models/presencaModel.js';
 
 export default async function updatePresenca(req, res) {
   try {
-    const { id_aluno } = req.params;
-    const { data } = req.query;  // data da presença que quer alterar
+    const { alunoId } = req.params;
+    const { data } = req.query;
     const { presente, observacao, nova_data } = req.body;
+
+    console.log('Parâmetros recebidos:', {
+      alunoId,
+      data,
+      presente,
+      observacao,
+      nova_data
+    });
 
     if (!data) {
       return res.status(400).json({ erro: 'Parâmetro "data" na query obrigatório' });
     }
 
-    // Busca o registro pela combinação id_aluno + data_presenca
     const presenca = await Presenca.findOne({
       where: {
-        id_aluno,
+        id_aluno: alunoId,
         data_presenca: data
       }
     });
@@ -22,7 +29,6 @@ export default async function updatePresenca(req, res) {
       return res.status(404).json({ erro: 'Registro de presença não encontrado para esse aluno e data' });
     }
 
-    // Atualiza os campos que vieram (se vierem)
     if (presente !== undefined) presenca.presente = presente;
     if (observacao !== undefined) presenca.observacao = observacao;
     if (nova_data !== undefined) presenca.data_presenca = nova_data;
@@ -33,6 +39,9 @@ export default async function updatePresenca(req, res) {
 
   } catch (error) {
     console.error('Erro ao atualizar presença:', error);
-    return res.status(500).json({ erro: 'Erro interno ao atualizar presença' });
+    return res.status(500).json({ 
+      erro: 'Erro interno ao atualizar presença',
+      detalhe: error.message
+    });
   }
 }

@@ -7,9 +7,9 @@ import getAlunosDesteResponsavel from '../../app/controllers/consultarResponsave
 
 const router = Router();
 
-router.get('/responsavel/:id', getResponsavel);
-
 router.get('/responsavel/responsaveis', getResponsaveis);
+
+router.get('/responsavel/:id', getResponsavel);
 
 router.get('/responsavel/alunos/:id', getAlunosDesteResponsavel);
 
