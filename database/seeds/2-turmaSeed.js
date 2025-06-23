@@ -1,9 +1,8 @@
-// seeders/XXXX-seed-turmas.js
 export async function up(queryInterface, Sequelize) {
   await queryInterface.bulkInsert('turmas', [
-    { id: 1, nome: '1°A', ano_letivo: '2025' },
-    { id: 2, nome: '2°B', ano_letivo: '2025' },
-    { id: 3, nome: '3°C', ano_letivo: '2025' },
+    { id: 1, ano_turma: 1, classe: 'A', ano_letivo: '2025' },
+    { id: 2, ano_turma: 2, classe: 'B', ano_letivo: '2025' },
+    { id: 3, ano_turma: 3, classe: 'C', ano_letivo: '2025' },
   ]);
 }
 

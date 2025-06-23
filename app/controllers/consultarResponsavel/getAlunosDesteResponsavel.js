@@ -8,7 +8,7 @@ export default async function getAlunosDoResponsavel(req, res) {
     const responsavelComAlunos = await Responsavel.findByPk(id, {
       include: [{
         model: Aluno,
-        as: 'aluno' // use o alias exato da associação
+        as: 'alunos'
       }]
     });
 

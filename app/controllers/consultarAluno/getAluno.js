@@ -1,6 +1,7 @@
 import aluno from '../../models/alunoModel.js';
+import turma from '../../models/turmaModel.js';
 
-export default async function GetAlunoController(req, res) {
+export default async function GetAluno(req, res) {
   try {
     const { id, nome } = req.body;
 
@@ -18,9 +19,18 @@ export default async function GetAlunoController(req, res) {
       return res.status(404).json({ mensagem: "Aluno não encontrado." });
     }
 
+    // Buscar dados da turma com base no ano_turma e classe do aluno
+    const turmaEncontrada = await turma.findOne({
+      where: {
+        ano_turma: alunoEncontrado.ano_turma,
+        classe: alunoEncontrado.classe,
+      }
+    });
+
     res.json({
       mensagem: "Aluno encontrado com sucesso!",
-      aluno: alunoEncontrado
+      aluno: alunoEncontrado,
+      turma: turmaEncontrada || null,
     });
 
   } catch (error) {

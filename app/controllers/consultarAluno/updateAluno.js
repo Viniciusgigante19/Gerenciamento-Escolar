@@ -2,11 +2,20 @@ import aluno from '../../models/alunoModel.js';
 
 export default async function updateAluno(req, res) {
   const { id } = req.params;
-  const dadosParaAtualizar = req.body; // pega tudo que veio no body
+  const dadosParaAtualizar = req.body;
 
   try {
     if (Object.keys(dadosParaAtualizar).length === 0) {
       return res.status(400).json({ mensagem: "Nenhum dado para atualizar." });
+    }
+
+    // Opcional: validar se os campos ano_turma e classe são válidos
+    if ('ano_turma' in dadosParaAtualizar && isNaN(dadosParaAtualizar.ano_turma)) {
+      return res.status(400).json({ mensagem: "Ano da turma deve ser um número válido." });
+    }
+
+    if ('classe' in dadosParaAtualizar && typeof dadosParaAtualizar.classe !== 'string') {
+      return res.status(400).json({ mensagem: "Classe deve ser uma letra válida." });
     }
 
     const [linhasAtualizadas] = await aluno.update(dadosParaAtualizar, {
@@ -17,7 +26,6 @@ export default async function updateAluno(req, res) {
       return res.status(404).json({ mensagem: "Aluno não encontrado." });
     }
 
-    // Busca o aluno atualizado para enviar a resposta com dados atuais
     const alunoAtualizado = await aluno.findByPk(id);
 
     res.json({

@@ -11,13 +11,14 @@ async function startServer() {
     try {
         await waitForPostgres();  // Espera o Postgres ficar pronto
 
-        initRelations();
+        initRelations(); // Inicializa as relações do Sequelize
 
-        await runMigrations();
+        await runMigrations(); // Executa as migrações do banco de dados
 
-        await runSeeds();
+        await runSeeds(); // Executa os seeds do banco de dados
 
-        const app = express();
+        const app = express(); 
+
         app.use(express.json());
 
         app.use("/", routes);

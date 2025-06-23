@@ -7,17 +7,21 @@ export async function up(queryInterface, Sequelize) {
       autoIncrement: true,
       allowNull: false,
     },
-    nome: {
-      type: Sequelize.STRING,
+    ano_turma: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    classe: {
+      type: Sequelize.STRING(5),
       allowNull: false,
     },
     ano_letivo: {
-      type: Sequelize.STRING(4),
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
   });
 }
 
-export default async function down(queryInterface, Sequelize) {
+export async function down(queryInterface, Sequelize) {
   await queryInterface.dropTable('turmas');
 }

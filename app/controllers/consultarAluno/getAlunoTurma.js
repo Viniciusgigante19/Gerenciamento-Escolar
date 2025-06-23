@@ -1,32 +1,15 @@
 import aluno from '../../models/alunoModel.js';
-import turma from '../../models/turmaModel.js';
-import { Op } from 'sequelize';
 
 export default async function getAlunoByTurma(req, res) {
   try {
-    let input = decodeURIComponent(req.params.nomeTurma).toUpperCase();
-    input = input.replace(/[^0-9A-Z°]/g, '');
-    if (!input.includes('°')) {
-      input = input.replace(/^(\d)([A-Z])$/, '$1°$2');
-    }
-
-    const turmaEncontrada = await turma.findOne({
-      where: {
-        nome: { [Op.iLike]: input }
-      }
-    });
-
-    if (!turmaEncontrada) {
-      return res.status(404).json({ mensagem: "Turma não encontrada." });
-    }
+    const { ano, classe } = req.params;
 
     const alunos = await aluno.findAll({
-      where: { id_turma: turmaEncontrada.id },
-      include: [{
-        model: turma,
-        as: 'turma',
-        attributes: ['nome', 'ano_letivo']
-      }]
+      where: {
+        ano_turma: Number(ano),
+        classe: classe.toUpperCase()
+      },
+      attributes: ['id', 'nome', 'ano_turma', 'classe', 'status']
     });
 
     if (alunos.length === 0) {

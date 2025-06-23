@@ -2,6 +2,7 @@ import express from 'express';
 import { Router } from 'express';
 import responsavelApi from './api/responsavelApi.js';
 import alunoApi from './api/alunoApi.js'
+import presencaApi from './api/presencaApi.js';
 
 export default function() {
     const router = Router();
@@ -10,9 +11,11 @@ export default function() {
         res.status(200).json({ message: 'API está funcionando!' });
     });
 
-    router.use('/', alunoApi);
+    router.use('/', alunoApi); // rota em manutenção
     
     router.use('/', responsavelApi)
+
+    router.use('/', presencaApi)
 
     return router;
 }

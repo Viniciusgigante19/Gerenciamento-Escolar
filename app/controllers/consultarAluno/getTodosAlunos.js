@@ -1,22 +1,26 @@
-import Aluno from '../../models/alunoModel.js';
+import aluno from '../../models/alunoModel.js';
 
-export default async function GetTodosAlunosController(req, res) {
-    try {
-        const { turmaId } = req.params;
+export default async function GetTodosAlunos(req, res) {
+  try {
+    const listaAlunos = await aluno.findAll({
+      order: [['nome', 'ASC']], // ordena alfabeticamente
+      attributes: [
+        'id',
+        'nome',
+        'ano_turma',
+        'classe',
+        'data_matricula',
+        'status'
+        // adicione aqui outros campos se quiser
+      ]
+    });
 
-        const alunos = await Aluno.findAll({
-            where: { id_turma: turmaId }  // Usa o campo correto do banco
-        });
+    res.json({
+      mensagem: "Lista de alunos carregada com sucesso!",
+      alunos: listaAlunos
+    });
 
-        if (alunos.length === 0) {
-            return res.status(404).json({ mensagem: "Nenhum aluno encontrado para esta turma." });
-        }
-
-        res.json({
-            mensagem: "Alunos encontrados com sucesso!",
-            alunos: alunos
-        });
-    } catch (error) {
-        res.status(500).json({ mensagem: "Erro ao buscar alunos.", erro: error.message });
-    }
+  } catch (error) {
+    res.status(500).json({ mensagem: "Erro ao buscar alunos.", erro: error.message });
+  }
 }

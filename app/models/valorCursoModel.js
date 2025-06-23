@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../config/sequelize.js';
 
-const Turma = sequelize.define('Turma', {
+const ValorCurso = sequelize.define('ValorCurso', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -11,17 +11,17 @@ const Turma = sequelize.define('Turma', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  classe: {
-    type: DataTypes.STRING(5),
+  plano_pagamento: {
+    type: DataTypes.ENUM('mensal', 'trimestral', 'anual'),
     allowNull: false,
   },
-  ano_letivo: {
-    type: DataTypes.INTEGER,
+  valor: {
+    type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
-  }
+  },
 }, {
-  tableName: 'turmas',
+  tableName: 'valores_curso',
   timestamps: false,
 });
 
-export default Turma;
+export default ValorCurso;

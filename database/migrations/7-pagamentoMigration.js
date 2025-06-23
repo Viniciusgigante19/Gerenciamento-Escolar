@@ -27,7 +27,7 @@ export async function up(queryInterface, Sequelize) {
     },
     data_pagamento: {
       type: Sequelize.DATEONLY,
-      allowNull: false,
+      allowNull: true,
     },
     status: {
       type: Sequelize.ENUM('Pendente', 'Pago', 'Atrasado'),
