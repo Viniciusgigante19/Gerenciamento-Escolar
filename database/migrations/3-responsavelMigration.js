@@ -14,10 +14,7 @@ export async function up(queryInterface, Sequelize) {
     telefone: {
       type: Sequelize.STRING,
       allowNull: true,
-    },
-    rg: {
-      
-    },
+    }
   });
 }
 

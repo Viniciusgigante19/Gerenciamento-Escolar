@@ -15,14 +15,6 @@ const Aluno = sequelize.define('Aluno', {
     type: DataTypes.DATEONLY,
     allowNull: true,
   },
-  rg: {
-    type: DataTypes.STRING(20),
-    allowNull: false, // tornar obrigatório
-    unique: true,    // garante que não existam dois alunos com o mesmo RG//
-      validate: {
-    is: /^\d{9}$/, // Aceita exatamente 9 dígitos numéricos para RG
-    },
-  },
   plano_pagamento: {
     type: DataTypes.STRING(50),
     allowNull: false,

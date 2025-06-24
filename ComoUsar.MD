@@ -28,7 +28,7 @@ Este é somente o token que deverá ser usado.
 
 ### RESPOSTA ESPERADA:
     {
-	    "message": "API is running"
+	    "message": "API está funcionando"
     }
 
 
@@ -54,7 +54,7 @@ POST http://localhost:3000/api/aluno
 
 REQ.BODY(
 {
-  "nome": "Seu Kumiama",
+  "nome": "Seu jurandi",
   "data_nascimento": "2010-05-15",
   "plano_pagamento": "mensal",
   "ano_turma": 5,
@@ -67,7 +67,7 @@ REQ.BODY(
 
 ### ATUALIZAR ALUNO:
 PUT http://localhost:3000/api/aluno/2
-{"nome":"Giuseppe Cadura"}
+{"nome":"Giuseppe Toledo"}
 
 ## API RESPONSAVEL:
 

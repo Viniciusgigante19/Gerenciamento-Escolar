@@ -3,7 +3,6 @@ export async function up(queryInterface, Sequelize) {
     {
       nome: 'Lucas da Silva',
       data_nascimento: '2012-04-15',
-      rg: '123456789',
       plano_pagamento: 'mensal',
       ano_turma: 1,
       classe: 'A',
@@ -14,7 +13,6 @@ export async function up(queryInterface, Sequelize) {
     {
       nome: 'Mariana Oliveira',
       data_nascimento: '2011-09-23',
-      rg: '987654321',
       plano_pagamento: 'trimestral',
       ano_turma: 2,
       classe: 'B',
@@ -25,7 +23,6 @@ export async function up(queryInterface, Sequelize) {
     {
       nome: 'Pedro Souza',
       data_nascimento: '2010-12-05',
-      rg: '456789123',
       plano_pagamento: 'anual',
       ano_turma: 3,
       classe: 'C',
@@ -36,7 +33,6 @@ export async function up(queryInterface, Sequelize) {
     {
       nome: 'Ana Martins',
       data_nascimento: '2012-01-20',
-      rg: '321654987',
       plano_pagamento: 'mensal',
       ano_turma: 1,
       classe: 'A',
@@ -47,7 +43,6 @@ export async function up(queryInterface, Sequelize) {
     {
       nome: 'Bruno Lima',
       data_nascimento: '2013-07-10',
-      rg: '789123456',
       plano_pagamento: 'trimestral',
       ano_turma: 2,
       classe: 'B',

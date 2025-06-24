@@ -49,7 +49,7 @@ docker-compose up --build -d
 
 ### 4. Acessar a aplicação
 Abra o navegaodor e acesse :
-http://localhost
+http://localhost:8080
 
 ### Acessar o conteiner POSTGRES :
 ```sh
