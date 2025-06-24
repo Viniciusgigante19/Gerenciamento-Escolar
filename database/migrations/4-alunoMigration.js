@@ -28,15 +28,13 @@ export async function up(queryInterface, Sequelize) {
       type: 'enum_alunos_plano_pagamento',
       allowNull: false,
     },
-    id_turma: {
+    ano_turma: {          // Novo campo ano da turma
       type: Sequelize.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'turmas',
-        key: 'id',
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL',
+      allowNull: false,
+    },
+    classe: {             // Novo campo classe/período
+      type: Sequelize.STRING(5),
+      allowNull: false,
     },
     responsavel_id: {
       type: Sequelize.INTEGER,
@@ -61,7 +59,6 @@ export async function up(queryInterface, Sequelize) {
 
 export async function down(queryInterface, Sequelize) {
   await queryInterface.dropTable('alunos');
-  // Remover o ENUM criado para plano_pagamento
   await queryInterface.sequelize.query(`
     DROP TYPE IF EXISTS "enum_alunos_plano_pagamento";
   `);

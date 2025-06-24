@@ -1,21 +1,25 @@
-// routes/api.js
 import express from 'express';
 import { Router } from 'express';
-
+import responsavelApi from './api/responsavelApi.js';
 import alunoApi from './api/alunoApi.js'
-import atividadeApi from './api/atividade.js'
-import responsavelApi from './api/responsavelApi.js'
+import presencaApi from './api/presencaApi.js';
+import mensalidadeApi from './api/MensalidadeApi.js'
 
 export default function() {
     const router = Router();
     
     router.get('/', (req, res) => {
-        res.status(200).json({ message: 'API is running' });
+        res.status(200).json({ message: 'API está funcionando!' });
     });
 
     router.use('/', alunoApi);
-    router.use('/', atividadeApi);
+    
     router.use('/', responsavelApi)
 
-    return router; // ✅ ESSENCIAL
+    router.use('/', presencaApi)
+
+    router.use('/', mensalidadeApi);
+    
+
+    return router;
 }

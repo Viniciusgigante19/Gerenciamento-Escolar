@@ -1,15 +1,20 @@
 import { Router } from 'express';
-import GetResponsavelController from '../../app/controllers/responsavelApi/getResponsavelController.js';
-import InsertResponsavelController from '../../app/controllers/responsavelApi/insertResponsavelController.js';
-import UpdateResponsavelController from '../../app/controllers/responsavelApi/updateResponsavelController.js';
-import DeleteResponsavelController from '../../app/controllers/responsavelApi/deleteResponsavel.js';
+import insertResponsavel from '../../app/controllers/consultarResponsavel/insertResponsavel.js';
+import getResponsavel from '../../app/controllers/consultarResponsavel/getResponsavel.js';
+import updateResponsavel from '../../app/controllers/consultarResponsavel/updateResponsavel.js';
+import getResponsaveis from '../../app/controllers/consultarResponsavel/getResponsaveis.js';
+import getAlunosDesteResponsavel from '../../app/controllers/consultarResponsavel/getAlunosDesteResponsavel.js';
 
 const router = Router();
 
-router.get('/responsaveis', GetResponsavelController);
-router.get('/responsavel/:id', GetResponsavelController )
-router.post('/responsavel', InsertResponsavelController);
-router.put('/responsavel/:id', UpdateResponsavelController);
-router.delete('/resonsavel/:id', DeleteResponsavelController);
+router.get('/responsavel/responsaveis', getResponsaveis);
+
+router.get('/responsavel/:id', getResponsavel);
+
+router.get('/responsavel/alunos/:id', getAlunosDesteResponsavel);
+
+router.post('/responsavel', insertResponsavel);
+
+router.put('/responsavel/:id', updateResponsavel);
 
 export default router;

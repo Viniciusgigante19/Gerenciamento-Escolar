@@ -1,28 +1,27 @@
 //esse arquivo de rotas 'alunoApi' contem rotas para o controller, por sua vez tem rotas para as models, que interage com banco de dados
+import getAluno from '../../app/controllers/consultarAluno/getAluno.js'
+import getAlunoByTurma from '../../app/controllers/consultarAluno/getAlunoTurma.js';
+import getTodosAlunos from '../../app/controllers/consultarAluno/getTodosAlunos.js';
+import insertAluno from '../../app/controllers/consultarAluno/insertAluno.js';
+import updateAluno from '../../app/controllers/consultarAluno/updateAluno.js';
 import { Router } from "express";
-import ListAlunosController from '../../app/controllers/alunoApi/listAlunoController.js'
-import GetAlunoController from '../../app/controllers/alunoApi/GetAlunoController.js'
-import InsertAlunoController from '../../app/controllers/alunoApi/insertAlunoController.js'
-import UpdateAlunoController from '../../app/controllers/alunoApi/updateAlunoController.js'
-import DeleteAlunoController from '../../app/controllers/alunoApi/deleteAlunoController.js'
 
 //o link alunoApi importa o codgo abaixo
 //aperte CONTROL e clique no link depois do caminho '/...' e sigua o fluxo.
 const router = Router();
 
-//rota api para listar alunos (Get)
-router.get('/alunos', ListAlunosController);
 
-//rota api para obter aluno por RA
-router.get('/aluno/:id', GetAlunoController )
+router.post('/aluno/buscar', getAluno); //Busca aluno ou pelo nome ou pelo id 
 
-// rota api para adicionar um aluno
-router.post('/aluno', InsertAlunoController);
+router.get('/aluno/alunos',getTodosAlunos); //Retorna todos os alunos 
 
-// rota api para atualizar um aluno
-router.put('/aluno/:id', UpdateAlunoController);
+router.get('/alunos/turma/:ano/:classe', getAlunoByTurma); //Busca alunos por turma 
+// http://localhost:3000/api/alunos/turma/3/c
 
-// rota api para deletar um aluno
-router.delete('/aluno/:id', DeleteAlunoController);
+router.put('/aluno/:id', updateAluno); //Atualiza os dados do aluno 
+
+router.post('/aluno', insertAluno);  
+//Insere um novo aluno, se ele tiver responsavel financeiro este
+// ja deve estar cadastrado no banco de dados antes do aluno! 
 
 export default router;

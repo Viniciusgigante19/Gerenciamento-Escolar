@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
 import loginJwt from  '../app/Middlewares/loginJwt.js'; 
 import registrarUser from '../app/Middlewares/registrarUser.js'
-import JwtAuthController from '../app/controllers/JwtAuthController.js';
-import LogMiddleware from '../app/controllers/LogMiddleware.js';
+import JwtAuthController from '../app/Middlewares/JwtAuthController.js';
+import LogMiddleware from '../app/Middlewares/LogMiddleware.js';
 import api from './api.js';
 
 export default (function () {

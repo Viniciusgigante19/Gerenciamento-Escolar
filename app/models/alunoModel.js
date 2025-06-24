@@ -12,7 +12,7 @@ const Aluno = sequelize.define('Aluno', {
     allowNull: false,
   },
   data_nascimento: {
-    type: DataTypes.DATEONLY, // corrigido: DATAONLY -> DATEONLY
+    type: DataTypes.DATEONLY,
     allowNull: true,
   },
   rg: {
@@ -30,20 +30,21 @@ const Aluno = sequelize.define('Aluno', {
       isIn: [['mensal', 'trimestral', 'anual']],
     },
   },
-  id_turma: {
+  ano_turma: {        // novo campo para ano da turma (ex: 3)
     type: DataTypes.INTEGER,
-    references: {
-      model: 'turmas',
-      key: 'id',
-    },
+    allowNull: false,
   },
-  responsavel_id: { 
+  classe: {           // novo campo para classe/período (ex: 'A')
+    type: DataTypes.STRING(5),
+    allowNull: false,
+  },
+  responsavel_id: {
     type: DataTypes.INTEGER,
     references: {
       model: 'responsaveis',
       key: 'id',
     },
-    allowNull: true, 
+    allowNull: true,
   },
   data_matricula: {
     type: DataTypes.DATEONLY,
