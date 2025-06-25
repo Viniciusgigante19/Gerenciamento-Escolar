@@ -1,20 +1,24 @@
 import aluno from '../app/models/alunoModel.js';
 import atividade from '../app/models/atividadeModel.js';
+import alunoAtividade from '../app/models/alunoAtividadeModel.js';
 import pagamento from '../app/models/pagamentoModel.js';
 import presenca from '../app/models/presencaModel.js';
 import responsavelAluno from '../app/models/responsavelAlunoModel.js';
 
 export default () => {
-  // NÃO RELACIONAR Turma com Aluno por FK (não existe mais id_turma)
-
-  // Aluno - Atividade (1-N)
-  aluno.hasMany(atividade, {
+  // Relação muitos-para-muitos entre Aluno e Atividade via tabela intermediária AlunosAtividades
+  aluno.belongsToMany(atividade, {
+    through: alunoAtividade,
     foreignKey: 'id_aluno',
+    otherKey: 'id_atividade',
     as: 'atividades',
   });
-  atividade.belongsTo(aluno, {
-    foreignKey: 'id_aluno',
-    as: 'aluno',
+
+  atividade.belongsToMany(aluno, {
+    through: alunoAtividade,
+    foreignKey: 'id_atividade',
+    otherKey: 'id_aluno',
+    as: 'alunos',
   });
 
   // Aluno - Responsável (1-N)

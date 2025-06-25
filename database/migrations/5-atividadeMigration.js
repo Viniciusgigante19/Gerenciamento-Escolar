@@ -1,4 +1,3 @@
-// migrations/XXXX-create-atividades.js
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable('atividades', {
     id: {
@@ -15,15 +14,13 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.DATEONLY,
       allowNull: false,
     },
-    id_turma: {
+    ano_turma: {
       type: Sequelize.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'turmas',
-        key: 'id',
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL',
+      allowNull: false,
+    },
+    classe: {
+      type: Sequelize.STRING(5),
+      allowNull: false,
     },
     arquivo_anexo: {
       type: Sequelize.STRING(255),

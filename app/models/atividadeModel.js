@@ -15,19 +15,19 @@ const Atividade = sequelize.define('Atividade', {
     type: DataTypes.DATEONLY,
     allowNull: false
   },
-  id_turma: {
+  ano_turma: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    references: {
-      model: 'turmas', 
-      key: 'id'
-    },
-    onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    comment: 'Ano escolar da turma associada à atividade'
   },
-  arquivo_anexo: {   
+  classe: {
+    type: DataTypes.STRING(5),
+    allowNull: true,
+    comment: 'Classe (ex: A, B, C)'
+  },
+  arquivo_anexo: {
     type: DataTypes.STRING(255),
-    allowNull: true,           // pode ser nulo caso não tenha arquivo
+    allowNull: true,
     comment: 'Caminho relativo do arquivo anexado'
   },
   responsavel: {

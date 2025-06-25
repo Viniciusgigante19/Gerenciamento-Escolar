@@ -25,6 +25,8 @@ services:
       - .env
     depends_on:
       - postgres
+    volumes:
+      - ./storage/documents:/usr/src/app/storage/documents
     networks:
       - app-network
 

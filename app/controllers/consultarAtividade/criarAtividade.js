@@ -1,45 +1,45 @@
 import atividade from '../../models/atividadeModel.js';
 import alunoAtividade from '../../models/alunoAtividadeModel.js';
+import Aluno from '../../models/alunoModel.js';
 
 export default async function criarAtividade(req, res) {
   try {
-    const { descricao, data_atividade, id_turma, alunosIds } = req.body;
+    const { descricao, data_atividade, ano_turma, classe } = req.body;
 
-    if (!descricao || !data_atividade) {
+    if (!descricao || !data_atividade || !ano_turma || !classe) {
       return res.status(400).json({ error: 'Campos obrigatórios ausentes' });
     }
 
-    let alunosArray = [];
-    if (typeof alunosIds === 'string') {
-      try {
-        alunosArray = JSON.parse(alunosIds);
-      } catch {
-        return res.status(400).json({ error: 'Formato inválido para alunosIds' });
-      }
-    } else if (Array.isArray(alunosIds)) {
-      alunosArray = alunosIds;
+    // Busca alunos da turma (ano + classe)
+    const alunos = await Aluno.findAll({
+      where: { ano_turma, classe }
+    });
+
+    if (alunos.length === 0) {
+      return res.status(404).json({ error: 'Nenhum aluno encontrado para esse ano e classe' });
     }
 
+    // Cria a atividade
     const novaAtividade = await atividade.create({
       descricao,
       data_atividade,
-      ...(id_turma ? { id_turma } : {}),  // só adiciona id_turma se existir
+      ano_turma,
+      classe,
       arquivo_anexo: req.file ? req.file.path : null,
       responsavel: req.user?.name || 'Professor'
     });
 
-    if (alunosArray.length > 0) {
-      const relacoes = alunosArray.map(id_aluno => ({
-        id_aluno,
-        id_atividade: novaAtividade.id,
-        status_participacao: 'Em andamento'
-      }));
+    // Cria as associações na tabela intermediária alunos_atividades
+    const relacoes = alunos.map(aluno => ({
+      id_aluno: aluno.id,
+      id_atividade: novaAtividade.id,
+      status_participacao: 'Em andamento'
+    }));
+    await alunoAtividade.bulkCreate(relacoes);
 
-      await alunoAtividade.bulkCreate(relacoes);
-    }
-
+    // Responde com sucesso
     return res.status(201).json({
-      message: 'Atividade criada com sucesso',
+      message: 'Atividade criada e associada aos alunos da turma',
       atividade: novaAtividade
     });
 
