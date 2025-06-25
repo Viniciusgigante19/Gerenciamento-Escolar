@@ -2,7 +2,7 @@ import express from 'express';
 import chalk from 'chalk';
 import initRelations from './config/sequelize_relations.js';
 import "./bootstrap/app.js";
-import routes from './routes/routes.js'
+import routes from './routes/routes.js';
 import runMigrations from './initNode/runMigrations.js';
 import runSeeds from './initNode/runSeeds.js';
 import { waitForPostgres } from './wait-for-it.js';

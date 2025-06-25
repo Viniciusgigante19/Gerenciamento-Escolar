@@ -4,8 +4,8 @@ export async function up(queryInterface, Sequelize) {
   await queryInterface.bulkInsert('valores_curso', [
     // Ano 1
     { ano_turma: 1, plano_pagamento: 'anual', valor: 600 },
-    { ano_turma: 1, plano_pagamento: 'trimestral', valor: 600 },
-    { ano_turma: 1, plano_pagamento: 'mensal', valor: 600 },
+    { ano_turma: 1, plano_pagamento: 'trimestral', valor: 700 },
+    { ano_turma: 1, plano_pagamento: 'mensal', valor: 900 },
 
     // Ano 2
     { ano_turma: 2, plano_pagamento: 'anual', valor: 800 },
@@ -23,7 +23,7 @@ export async function up(queryInterface, Sequelize) {
     { ano_turma: 4, plano_pagamento: 'mensal', valor: 1200 },
 
     // Ano 5
-    { ano_turma: 5, plano_pagamento: 'anual', valor: 1400 },
+    { ano_turma: 5, plano_pagamento: 'anual', valor: 14000 },
     { ano_turma: 5, plano_pagamento: 'trimestral', valor: 1400 },
     { ano_turma: 5, plano_pagamento: 'mensal', valor: 1400 },
   ]);

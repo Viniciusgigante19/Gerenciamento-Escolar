@@ -19,19 +19,20 @@ const Atividade = sequelize.define('Atividade', {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: 'turmas', // deve bater com o nome real da tabela definido em Turma.js
+      model: 'turmas', 
       key: 'id'
     },
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
   },
-  arquivo_anexo: {
+  arquivo_anexo: {   
     type: DataTypes.STRING(255),
-    allowNull: true
+    allowNull: true,           // pode ser nulo caso não tenha arquivo
+    comment: 'Caminho relativo do arquivo anexado'
   },
   responsavel: {
     type: DataTypes.STRING(150),
-    allowNull: false
+    allowNull: true
   }
 }, {
   tableName: 'atividades',

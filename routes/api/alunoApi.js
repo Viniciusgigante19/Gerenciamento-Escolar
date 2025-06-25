@@ -6,10 +6,7 @@ import insertAluno from '../../app/controllers/consultarAluno/insertAluno.js';
 import updateAluno from '../../app/controllers/consultarAluno/updateAluno.js';
 import { Router } from "express";
 
-//o link alunoApi importa o codgo abaixo
-//aperte CONTROL e clique no link depois do caminho '/...' e sigua o fluxo.
 const router = Router();
-
 
 router.post('/aluno/buscar', getAluno); //Busca aluno ou pelo nome ou pelo id 
 
