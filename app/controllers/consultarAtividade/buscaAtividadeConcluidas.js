@@ -13,6 +13,7 @@ export default async function buscaAtividadesConcluidas(req, res) {
       include: [
         {
           model: atividade,
+          as: 'atividade',  // precisa ser exatamente o mesmo alias usado na associação
           attributes: ['descricao', 'data_atividade', 'arquivo_anexo', 'responsavel'],
         }
       ],

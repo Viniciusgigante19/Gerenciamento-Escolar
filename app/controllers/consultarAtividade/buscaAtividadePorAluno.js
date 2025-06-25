@@ -10,6 +10,7 @@ export default async function getAtividadesPorAluno(req, res) {
       include: [
         {
           model: atividade,
+          as: 'atividade', 
           attributes: ['descricao', 'data_atividade', 'arquivo_anexo', 'responsavel'],
         }
       ],

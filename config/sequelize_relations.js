@@ -21,6 +21,25 @@ export default () => {
     as: 'alunos',
   });
 
+  // Associação explícita para permitir eager loading direto a partir de alunoAtividade
+  alunoAtividade.belongsTo(atividade, {
+    foreignKey: 'id_atividade',
+    as: 'atividade',
+  });
+  atividade.hasMany(alunoAtividade, {
+    foreignKey: 'id_atividade',
+    as: 'alunoAtividadesAtividade', // alias único para evitar conflito
+  });
+
+  alunoAtividade.belongsTo(aluno, {
+    foreignKey: 'id_aluno',
+    as: 'aluno',
+  });
+  aluno.hasMany(alunoAtividade, {
+    foreignKey: 'id_aluno',
+    as: 'alunoAtividadesAluno', // alias único para evitar conflito
+  });
+
   // Aluno - Responsável (1-N)
   responsavelAluno.hasMany(aluno, {
     foreignKey: 'responsavel_id',

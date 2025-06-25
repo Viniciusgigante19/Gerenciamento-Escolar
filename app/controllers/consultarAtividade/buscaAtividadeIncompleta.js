@@ -1,5 +1,6 @@
 import alunoAtividade from '../../models/alunoAtividadeModel.js';
 import atividade from '../../models/atividadeModel.js';
+import { Op } from 'sequelize';
 
 export default async function buscaAtividadesIncompletas(req, res) {
   try {
@@ -8,11 +9,14 @@ export default async function buscaAtividadesIncompletas(req, res) {
     const atividades = await alunoAtividade.findAll({
       where: {
         id_aluno: id,
-        status_participacao: ['Em andamento', 'Faltou']  // incompletas
+        status_participacao: {
+          [Op.in]: ['Em andamento', 'Faltou']
+        }
       },
       include: [
         {
           model: atividade,
+          as: 'atividade',  // use o alias correto aqui
           attributes: ['descricao', 'data_atividade', 'arquivo_anexo', 'responsavel'],
         }
       ],
