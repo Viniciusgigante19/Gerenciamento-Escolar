@@ -1,0 +1,208 @@
+openapi: 3.0.0
+info:
+  title: API do Sistema Escolar 
+  version: 1.0.0
+  description: Documentação da API para gerenciamento de presenças dos alunos.
+
+servers:
+  - url: http://localhost:3000
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /mensalidade:
+    post:
+      summary: Retorna as mensalidades de um aluno para um determinado ano
+      description: Busca um aluno pelo nome e retorna todas as mensalidades associadas a ele dentro do ano especificado.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - ano
+              properties:
+                nome:
+                  type: string
+                  example: João Silva
+                ano:
+                  type: integer
+                  example: 2025
+      responses:
+        '200':
+          description: Lista de mensalidades encontradas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    id_aluno:
+                      type: integer
+                      example: 3
+                    valor:
+                      type: number
+                      example: 150.00
+                    data_vencimento:
+                      type: string
+                      format: date
+                      example: "2025-02-10"
+                    status:
+                      type: string
+                      example: pendente
+        '400':
+          description: Nome e ano não enviados
+        '404':
+          description: Aluno não encontrado
+        '500':
+          description: Erro interno no servidor
+  /mensalidade/buscar:
+    post:
+      summary: Busca mensalidades de um aluno filtrando por ano e status
+      description: Retorna mensalidades de um aluno em um ano específico. Pode filtrar também por status: Pendente, Pago ou Atrasado.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - ano
+              properties:
+                nome:
+                  type: string
+                  example: João da Silva
+                ano:
+                  type: integer
+                  example: 2025
+                status:
+                  type: string
+                  enum: [Pendente, Pago, Atrasado]
+                  example: Pendente
+      responses:
+        '200':
+          description: Lista de mensalidades encontradas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 10
+                    id_aluno:
+                      type: integer
+                      example: 1
+                    valor:
+                      type: number
+                      example: 200.00
+                    data_vencimento:
+                      type: string
+                      format: date
+                      example: "2025-05-15"
+                    status:
+                      type: string
+                      example: Pendente
+        '400':
+          description: Nome, ano ou status inválidos
+        '404':
+          description: Aluno não encontrado
+        '500':
+          description: Erro interno ao buscar mensalidades
+  /mensalidade/valor:
+    put:
+      summary: Atualiza o valor do curso com base no ano da turma e plano de pagamento
+      description: Permite atualizar o valor do curso para um determinado ano e plano de pagamento. Se o plano não for informado, atualiza todos os registros daquele ano.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ano_turma
+                - valor
+              properties:
+                ano_turma:
+                  type: integer
+                  example: 2
+                valor:
+                  type: number
+                  example: 180.00
+                plano_pagamento:
+                  type: string
+                  enum: [mensal, trimestral, anual]
+                  example: mensal
+      responses:
+        '200':
+          description: Valor(es) atualizado(s) com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Foram atualizados 1 registros.
+        '400':
+          description: Dados obrigatórios ausentes ou inválidos
+        '404':
+          description: Nenhum registro encontrado para atualização
+        '500':
+          description: Erro interno ao atualizar valores do curso
+  /mensalidade/valores/curso:
+    get:
+      summary: Lista os valores de curso por ano e plano de pagamento
+      description: Retorna os valores cadastrados para cada ano de turma e plano de pagamento (mensal, trimestral, anual).
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista dos valores organizados por ano e plano
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ano:
+                      type: integer
+                      example: 1
+                    mensal:
+                      type: number
+                      nullable: true
+                      example: 150.0
+                    trimestral:
+                      type: number
+                      nullable: true
+                      example: 400.0
+                    anual:
+                      type: number
+                      nullable: true
+                      example: 1500.0
+        '500':
+          description: Erro interno ao buscar valores dos cursos

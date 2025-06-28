@@ -6,6 +6,8 @@ import routes from './routes/routes.js';
 import runMigrations from './initNode/runMigrations.js';
 import runSeeds from './initNode/runSeeds.js';
 import { waitForPostgres } from './wait-for-it.js';
+import swaggerUi from 'swagger-ui-express';
+import { readSwagger } from './readSwagger.js';  
 
 async function startServer() {
     try {
@@ -23,11 +25,15 @@ async function startServer() {
 
         app.use("/", routes);
 
+        const swaggerDocument = readSwagger('./swagger'); // Lê os arquivos Swagger
+        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+        
         const webPort = process.env.PORT || 3000;
         const nodePort = process.env.NODE_PORT || webPort;
 
         app.listen(nodePort, () => {
             console.log(chalk.green(`Servidor: http://localhost:${webPort}`));
+            console.log(chalk.red(`Swagger: http://localhost:3000/api-docs`));
         });
     } catch (error) {
         console.error(chalk.red('Error starting the server:'), error);

@@ -1,0 +1,265 @@
+openapi: 3.0.0
+info:
+  title: API do Sistema Escolar
+  version: 1.0.0
+  description: Documentação da API para gerenciamento dos responsáveis financeiros dos alunos.
+
+servers:
+  - url: http://localhost:3000
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /responsavel/responsaveis:
+    get:
+      summary: Retorna todos os responsáveis financeiros
+      description: Retorna uma lista completa de responsáveis financeiros cadastrados no sistema.
+      responses:
+        '200':
+          description: Lista de responsáveis carregada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    nome:
+                      type: string
+                      example: João da Silva
+                    telefone:
+                      type: string
+                      example: "(11) 91234-5678"
+        '404':
+          description: Nenhum responsável encontrado
+        '500':
+          description: Erro interno no servidor
+  /responsavel/{id}:
+    get:
+      summary: Retorna dados de um responsável pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do responsável
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Responsável encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  nome:
+                    type: string
+                    example: João da Silva
+                  telefone:
+                    type: string
+                    example: "(11) 91234-5678"
+        '404':
+          description: Responsável não encontrado
+        '500':
+          description: Erro interno no servidor
+
+    /responsavel/alunos/{id}:
+      get:
+        summary: Retorna os alunos vinculados a um responsável financeiro pelo ID
+        description: Retorna a lista de alunos que estão ligados ao responsável financeiro identificado pelo ID fornecido na URL.
+        parameters:
+          - name: id
+            in: path
+            description: ID do responsável financeiro
+            required: true
+            schema:
+              type: integer
+              example: 1
+        responses:
+          '200':
+            description: Lista de alunos do responsável carregada com sucesso
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 10
+                      nome:
+                        type: string
+                        example: Ana Souza
+                      ano_turma:
+                        type: integer
+                        example: 3
+                      classe:
+                        type: string
+                        example: B
+                      data_matricula:
+                        type: string
+                        format: date
+                        example: "2024-01-15"
+                      status:
+                        type: string
+                        example: ativo
+          '404':
+            description: Responsável não encontrado
+          '500':
+            description: Erro interno no servidor
+        security:
+          - bearerAuth: []
+  /responsavel:
+    post:
+      summary: Cadastra um novo responsável financeiro
+      description: Insere um novo responsável no sistema, com nome e telefone.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - telefone
+              properties:
+                nome:
+                  type: string
+                  example: "Carlos Silva"
+                telefone:
+                  type: string
+                  example: "(11) 99999-9999"
+      responses:
+        '201':
+          description: Responsável cadastrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: "Responsável cadastrado com sucesso!"
+                  responsavel:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nome:
+                        type: string
+                        example: "Carlos Silva"
+                      telefone:
+                        type: string
+                        example: "(11) 99999-9999"
+        '500':
+          description: Erro ao cadastrar responsável
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: "Erro ao cadastrar responsável."
+                  erro:
+                    type: string
+                    example: "Erro detalhado"
+                  detalhes:
+                    type: array
+                    items:
+                      type: string
+      security:
+        - bearerAuth: []
+        
+  /responsavel/{id}:
+    put:
+      summary: Atualiza dados de um responsável pelo ID
+      description: Atualiza parcialmente os dados do responsável identificado pelo ID na URL. Apenas os campos enviados no corpo serão atualizados.
+      parameters:
+        - name: id
+          in: path
+          description: ID do responsável a ser atualizado
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Campos do responsável a serem atualizados (todos opcionais)
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  example: "Carlos Silva"
+                telefone:
+                  type: string
+                  example: "(11) 99999-9999"
+              minProperties: 1
+      responses:
+        '200':
+          description: Responsável atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: "Responsável atualizado com sucesso."
+                  responsavel:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nome:
+                        type: string
+                        example: "Carlos Silva"
+                      telefone:
+                        type: string
+                        example: "(11) 99999-9999"
+        '404':
+          description: Responsável não encontrado com o ID informado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: "Responsável não encontrado."
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: "Erro ao atualizar responsável."
+                  erro:
+                    type: string
+                    example: "Mensagem detalhada do erro"
+      security:
+        - bearerAuth: []

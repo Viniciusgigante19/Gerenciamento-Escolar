@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: API do Sistema Escolar
+  version: 1.0.0
+  description: Documentação da API escolar para alunos, atividades, presenças e pagamentos
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /login:
+    post:
+      summary: Efetua o login do usuário administrador
+      description: Com o login  e Token gerado você acessará as rotas protegidas da API.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - senha
+              properties:
+                email:
+                  type: string
+                  example: admin@example.com
+                senha:
+                  type: string
+                  example: senha123
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                  resultado:
+                    type: object
+                    description: Objeto de retorno (ex: aluno, turma, pagamento)
+        '400':
+          description: Requisição mal formatada
+        '404':
+          description: Recurso não encontrado
+        '500':
+          description: Erro interno
+
+  /registrar:
+    post:
+      summary: Registrar usuário administrador
+      description: Cria um dado de usuário administrador com privilégios de consultas no sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - email
+                - password
+              properties:
+                nome:
+                  type: string
+                  example: Vladimir
+                email:
+                  type: string
+                  example: vladimir@gmail.com
+                password:
+                  type: string
+                  example: senhaDoVladimir
+      responses:
+        '201':
+          description: Usuário registrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  user:
+                    type: object
+        '400':
+          description: Requisição mal formatada ou usuário já existe
+        '500':
+          description: Erro interno do servidor

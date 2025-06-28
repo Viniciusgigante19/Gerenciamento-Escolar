@@ -1,0 +1,398 @@
+openapi: 3.0.0
+info:
+  title: API do Sistema Escolar
+  version: 1.0.0
+  description: Documentação da API escolar para alunos, atividades, presenças e pagamentos
+
+servers:
+  - url: http://localhost:3000
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /aluno/buscar:
+    post:
+      summary: Busca aluno por ID ou nome
+      description: Retorna os dados de um aluno com base no ID ou nome fornecido. Também retorna dados da turma vinculada.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                nome:
+                  type: string
+                  example: Lucas da Silva
+              oneOf:
+                - required: [id]
+                - required: [nome]
+      responses:
+        '200':
+          description: Aluno encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: Aluno encontrado com sucesso!
+                  aluno:
+                    type: object
+                    description: Dados do aluno encontrados
+                  turma:
+                    type: object
+                    nullable: true
+                    description: Turma associada ao aluno, se existir
+        '400':
+          description: Parâmetro id ou nome não foi enviado
+        '404':
+          description: Aluno não encontrado
+        '500':
+          description: Erro interno no servidor
+
+  /aluno/alunos:
+    get:
+      summary: Retorna todos os alunos
+      description: Retorna a lista completa de alunos da escola, ordenados alfabeticamente pelo nome.
+      responses:
+        '200':
+          description: Lista de alunos carregada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: Lista de alunos carregada com sucesso!
+                  alunos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        nome:
+                          type: string
+                          example: Lucas da Silva
+                        ano_turma:
+                          type: integer
+                          example: 3
+                        classe:
+                          type: string
+                          example: C
+                        data_matricula:
+                          type: string
+                          format: date
+                          example: 2024-01-15
+                        status:
+                          type: string
+                          example: ativo
+        '500':
+          description: Erro interno no servidor
+
+  /alunos/turma/{ano}/{classe}:
+    get:
+      summary: Retorna alunos por ano e classe da turma
+      description: Retorna todos os alunos que pertencem ao ano e classe indicados na URL.
+      parameters:
+        - name: ano
+          in: path
+          description: Ano da turma (número inteiro positivo)
+          required: true
+          schema:
+            type: integer
+            example: 3
+            minimum: 1
+        - name: classe
+          in: path
+          description: Classe da turma (letra maiúscula)
+          required: true
+          schema:
+            type: string
+            example: "C"
+            pattern: "^[A-Z]$"
+      responses:
+        '200':
+          description: Lista de alunos da turma carregada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: Lista de alunos da turma carregada com sucesso!
+                  alunos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        nome:
+                          type: string
+                          example: Lucas da Silva
+                        ano_turma:
+                          type: integer
+                          example: 3
+                        classe:
+                          type: string
+                          example: C
+                        data_matricula:
+                          type: string
+                          format: date
+                          example: 2024-01-15
+                        status:
+                          type: string
+                          example: ativo
+        '400':
+          description: Parâmetros inválidos ou ausentes
+        '404':
+          description: Turma ou alunos não encontrados
+        '500':
+          description: Erro interno no servidor
+      security:
+        - bearerAuth: []
+
+  /aluno/{id}:
+    put:
+      summary: Atualiza dados de um aluno pelo ID
+      description: Atualiza parcialmente os dados do aluno identificado pelo ID na URL. Apenas os campos enviados no corpo serão atualizados.
+      parameters:
+        - name: id
+          in: path
+          description: ID do aluno a ser atualizado
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Campos do aluno a serem atualizados (todos opcionais)
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  example: Seu Kumiama
+                data_nascimento:
+                  type: string
+                  format: date
+                  example: "2010-05-15"
+                plano_pagamento:
+                  type: string
+                  example: mensal
+                ano_turma:
+                  type: integer
+                  example: 1
+                classe:
+                  type: string
+                  example: A
+                responsavel_id:
+                  type: integer
+                  example: 1
+                data_matricula:
+                  type: string
+                  format: date
+                  example: "2025-01-10"
+                status:
+                  type: string
+                  example: Ativo
+              minProperties: 1
+      responses:
+        '200':
+          description: Aluno atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: Aluno atualizado com sucesso!
+                  aluno:
+                    type: object
+                    description: Dados atualizados do aluno
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nome:
+                        type: string
+                        example: Seu Kumiama
+                      data_nascimento:
+                        type: string
+                        format: date
+                        example: "2010-05-15"
+                      plano_pagamento:
+                        type: string
+                        example: mensal
+                      ano_turma:
+                        type: integer
+                        example: 1
+                      classe:
+                        type: string
+                        example: A
+                      responsavel_id:
+                        type: integer
+                        example: 1
+                      data_matricula:
+                        type: string
+                        format: date
+                        example: "2025-01-10"
+                      status:
+                        type: string
+                        example: Ativo
+        '400':
+          description: Dados inválidos para atualização (ex: corpo vazio ou campos errados)
+        '404':
+          description: Aluno não encontrado com o ID informado
+        '500':
+          description: Erro interno no servidor
+
+  /aluno:
+    post:
+      summary: Cadastra um novo aluno e gera boletos de pagamento
+      description: |
+        Insere um novo aluno na base de dados. Caso seja informado o ID do responsável financeiro,
+        será verificado se existe no banco. Gera os boletos de pagamento associados na mesma transação.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - nome
+                - data_matricula
+              properties:
+                nome:
+                  type: string
+                  example: João Silva
+                data_nascimento:
+                  type: string
+                  format: date
+                  example: "2010-05-15"
+                plano_pagamento:
+                  type: string
+                  example: mensal
+                ano_turma:
+                  type: integer
+                  example: 3
+                classe:
+                  type: string
+                  example: A
+                responsavel_id:
+                  type: integer
+                  example: 1
+                data_matricula:
+                  type: string
+                  format: date
+                  example: "2025-01-10"
+                status:
+                  type: string
+                  example: ativo
+      responses:
+        '201':
+          description: Aluno cadastrado e boletos gerados com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensagem:
+                    type: string
+                    example: Aluno cadastrado e boletos gerados com sucesso!
+                  aluno:
+                    type: object
+                    description: Dados do aluno cadastrado
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nome:
+                        type: string
+                        example: João Silva
+                      data_nascimento:
+                        type: string
+                        format: date
+                        example: "2010-05-15"
+                      plano_pagamento:
+                        type: string
+                        example: mensal
+                      ano_turma:
+                        type: integer
+                        example: 3
+                      classe:
+                        type: string
+                        example: A
+                      responsavel_id:
+                        type: integer
+                        example: 1
+                      data_matricula:
+                        type: string
+                        format: date
+                        example: "2025-01-10"
+                      status:
+                        type: string
+                        example: ativo
+                  pagamentos:
+                    type: array
+                    description: Lista dos pagamentos gerados para o aluno
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        valor:
+                          type: number
+                          example: 150.0
+                        vencimento:
+                          type: string
+                          format: date
+                          example: "2025-02-10"
+                        status:
+                          type: string
+                          example: pendente
+        '400':
+          description: Dados inválidos ou aluno/responsável já cadastrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Aluno já cadastrado."
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Erro ao cadastrar aluno e gerar boletos."
+                  detalhe:
+                    type: string
+                    example: "Erro detalhado"

@@ -1,0 +1,281 @@
+/atividade/turma:
+  post:
+    summary: Cria uma nova atividade para uma turma específica
+    description: Cria uma atividade para todos os alunos de uma turma (baseada em ano_turma e classe). É obrigatório anexar um arquivo (ex: PDF, TXT).
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            required:
+              - descricao
+              - data_atividade
+              - ano_turma
+              - classe
+              - arquivo
+            properties:
+              descricao:
+                type: string
+                example: Redação sobre o meio ambiente
+              data_atividade:
+                type: string
+                format: date
+                example: "2025-07-05"
+              ano_turma:
+                type: integer
+                example: 2
+              classe:
+                type: string
+                example: B
+              arquivo:
+                type: string
+                format: binary
+    responses:
+      '201':
+        description: Atividade criada com sucesso e associada aos alunos da turma
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Atividade criada e associada aos alunos da turma
+                atividade:
+                  type: object
+      '400':
+        description: Campos obrigatórios ausentes
+      '404':
+        description: Nenhum aluno encontrado para esse ano e classe
+      '500':
+        description: Erro interno no servidor
+/atividade/alunos:
+  post:
+    summary: Cria uma nova atividade para alunos específicos
+    description: Cria uma atividade e a atribui apenas aos alunos cujos IDs forem informados. Um arquivo (PDF, TXT, etc.) pode ser anexado junto. O campo alunosIds pode ser um array ou uma string JSON.
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            required:
+              - descricao
+              - data_atividade
+              - alunosIds
+            properties:
+              descricao:
+                type: string
+                example: Trabalho de ciências
+              data_atividade:
+                type: string
+                format: date
+                example: "2025-07-10"
+              alunosIds:
+                oneOf:
+                  - type: string
+                    example: "[1,2,3]"
+                  - type: array
+                    items:
+                      type: integer
+              arquivo:
+                type: string
+                format: binary
+    responses:
+      '201':
+        description: Atividade criada com sucesso e atribuída aos alunos selecionados
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Atividade criada com sucesso e atribuída aos alunos selecionados
+                atividade:
+                  type: object
+      '400':
+        description: Dados ausentes ou inválidos
+      '500':
+        description: Erro interno no servidor
+/atividade/aluno/{id}:
+  get:
+    summary: Lista todas as atividades de um aluno
+    description: Retorna todas as atividades atribuídas a um aluno específico com base em seu ID.
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        description: ID do aluno
+    responses:
+      '200':
+        description: Lista de atividades atribuídas ao aluno
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id_aluno:
+                    type: integer
+                  id_atividade:
+                    type: integer
+                  status_participacao:
+                    type: string
+                  atividade:
+                    type: object
+                    properties:
+                      descricao:
+                        type: string
+                      data_atividade:
+                        type: string
+                        format: date
+                      arquivo_anexo:
+                        type: string
+                      responsavel:
+                        type: string
+      '500':
+        description: Erro interno no servidor
+/atividade/aluno/{id}:
+  get:
+    summary: Lista todas as atividades de um aluno
+    description: Retorna todas as atividades atribuídas a um aluno específico com base em seu ID.
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        description: ID do aluno
+    responses:
+      '200':
+        description: Lista de atividades atribuídas ao aluno
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id_aluno:
+                    type: integer
+                  id_atividade:
+                    type: integer
+                  status_participacao:
+                    type: string
+                  atividade:
+                    type: object
+                    properties:
+                      descricao:
+                        type: string
+                      data_atividade:
+                        type: string
+                        format: date
+                      arquivo_anexo:
+                        type: string
+                      responsavel:
+                        type: string
+      '500':
+        description: Erro interno no servidor
+/atividade_concluidas/aluno/{id}:
+  get:
+    summary: Lista as atividades concluídas de um aluno
+    description: Retorna todas as atividades atribuídas a um aluno específico que possuem status de participação "Concluído".
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        description: ID do aluno
+    responses:
+      '200':
+        description: Lista de atividades concluídas do aluno
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id_aluno:
+                    type: integer
+                  id_atividade:
+                    type: integer
+                  status_participacao:
+                    type: string
+                    example: Concluído
+                  atividade:
+                    type: object
+                    properties:
+                      descricao:
+                        type: string
+                      data_atividade:
+                        type: string
+                        format: date
+                      arquivo_anexo:
+                        type: string
+                        nullable: true
+                      responsavel:
+                        type: string
+      '500':
+        description: Erro interno no servidor
+/atividade_nao_concluidas/aluno/{id}:
+  get:
+    summary: Lista as atividades não concluídas de um aluno
+    description: Retorna todas as atividades atribuídas a um aluno específico cujo status de participação é "Em andamento" ou "Faltou".
+    security:
+      - bearerAuth: []
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        description: ID do aluno
+    responses:
+      '200':
+        description: Lista de atividades não concluídas do aluno
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id_aluno:
+                    type: integer
+                  id_atividade:
+                    type: integer
+                  status_participacao:
+                    type: string
+                    example: Em andamento
+                  atividade:
+                    type: object
+                    properties:
+                      descricao:
+                        type: string
+                      data_atividade:
+                        type: string
+                        format: date
+                      arquivo_anexo:
+                        type: string
+                        nullable: true
+                      responsavel:
+                        type: string
+      '500':
+        description: Erro interno no servidor
