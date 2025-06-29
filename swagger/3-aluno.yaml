@@ -18,7 +18,7 @@ components:
       bearerFormat: JWT
 
 paths:
-  /aluno/buscar:
+  /api/aluno/buscar:
     post:
       summary: Busca aluno por ID ou nome
       description: Retorna os dados de um aluno com base no ID ou nome fornecido. Também retorna dados da turma vinculada.
@@ -63,7 +63,7 @@ paths:
         '500':
           description: Erro interno no servidor
 
-  /aluno/alunos:
+  /api/aluno/alunos:
     get:
       summary: Retorna todos os alunos
       description: Retorna a lista completa de alunos da escola, ordenados alfabeticamente pelo nome.
@@ -105,7 +105,7 @@ paths:
         '500':
           description: Erro interno no servidor
 
-  /alunos/turma/{ano}/{classe}:
+  /api/alunos/turma/{ano}/{classe}:
     get:
       summary: Retorna alunos por ano e classe da turma
       description: Retorna todos os alunos que pertencem ao ano e classe indicados na URL.
@@ -157,7 +157,7 @@ paths:
                         data_matricula:
                           type: string
                           format: date
-                          example: 2024-01-15
+                          example: "2024-01-15"
                         status:
                           type: string
                           example: ativo
@@ -170,7 +170,7 @@ paths:
       security:
         - bearerAuth: []
 
-  /aluno/{id}:
+  /api/aluno/{id}:
     put:
       summary: Atualiza dados de um aluno pelo ID
       description: Atualiza parcialmente os dados do aluno identificado pelo ID na URL. Apenas os campos enviados no corpo serão atualizados.
@@ -192,7 +192,7 @@ paths:
               properties:
                 nome:
                   type: string
-                  example: Seu Kumiama
+                  example: Junin
                 data_nascimento:
                   type: string
                   format: date
@@ -268,7 +268,7 @@ paths:
         '500':
           description: Erro interno no servidor
 
-  /aluno:
+  /api/aluno:
     post:
       summary: Cadastra um novo aluno e gera boletos de pagamento
       description: |

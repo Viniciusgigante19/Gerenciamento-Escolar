@@ -18,7 +18,7 @@ components:
       bearerFormat: JWT
 
 paths:
-  /responsavel/responsaveis:
+  /api/responsavel/responsaveis:
     get:
       summary: Retorna todos os responsáveis financeiros
       description: Retorna uma lista completa de responsáveis financeiros cadastrados no sistema.
@@ -45,7 +45,8 @@ paths:
           description: Nenhum responsável encontrado
         '500':
           description: Erro interno no servidor
-  /responsavel/{id}:
+
+  /api/responsavel/{id}:
     get:
       summary: Retorna dados de um responsável pelo ID
       parameters:
@@ -78,54 +79,55 @@ paths:
         '500':
           description: Erro interno no servidor
 
-    /responsavel/alunos/{id}:
-      get:
-        summary: Retorna os alunos vinculados a um responsável financeiro pelo ID
-        description: Retorna a lista de alunos que estão ligados ao responsável financeiro identificado pelo ID fornecido na URL.
-        parameters:
-          - name: id
-            in: path
-            description: ID do responsável financeiro
-            required: true
-            schema:
-              type: integer
-              example: 1
-        responses:
-          '200':
-            description: Lista de alunos do responsável carregada com sucesso
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 10
-                      nome:
-                        type: string
-                        example: Ana Souza
-                      ano_turma:
-                        type: integer
-                        example: 3
-                      classe:
-                        type: string
-                        example: B
-                      data_matricula:
-                        type: string
-                        format: date
-                        example: "2024-01-15"
-                      status:
-                        type: string
-                        example: ativo
-          '404':
-            description: Responsável não encontrado
-          '500':
-            description: Erro interno no servidor
-        security:
-          - bearerAuth: []
-  /responsavel:
+  /api/responsavel/alunos/{id}:
+    get:
+      summary: Retorna os alunos vinculados a um responsável financeiro pelo ID
+      description: Retorna a lista de alunos que estão ligados ao responsável financeiro identificado pelo ID fornecido na URL.
+      parameters:
+        - name: id
+          in: path
+          description: ID do responsável financeiro
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Lista de alunos do responsável carregada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 10
+                    nome:
+                      type: string
+                      example: Ana Souza
+                    ano_turma:
+                      type: integer
+                      example: 3
+                    classe:
+                      type: string
+                      example: B
+                    data_matricula:
+                      type: string
+                      format: date
+                      example: "2024-01-15"
+                    status:
+                      type: string
+                      example: ativo
+        '404':
+          description: Responsável não encontrado
+        '500':
+          description: Erro interno no servidor
+      security:
+        - bearerAuth: []
+
+  /api/responsavel:
     post:
       summary: Cadastra um novo responsável financeiro
       description: Insere um novo responsável no sistema, com nome e telefone.
@@ -187,8 +189,8 @@ paths:
                       type: string
       security:
         - bearerAuth: []
-        
-  /responsavel/{id}:
+
+  /api/responsavel/{id}:
     put:
       summary: Atualiza dados de um responsável pelo ID
       description: Atualiza parcialmente os dados do responsável identificado pelo ID na URL. Apenas os campos enviados no corpo serão atualizados.

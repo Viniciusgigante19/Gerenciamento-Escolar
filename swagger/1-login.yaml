@@ -8,7 +8,7 @@ servers:
   - url: http://localhost:3000
 
 paths:
-  /login:
+  /api/login:
     post:
       summary: Efetua o login do usuário administrador
       description: Com o login  e Token gerado você acessará as rotas protegidas da API.
@@ -48,7 +48,7 @@ paths:
         '500':
           description: Erro interno
 
-  /registrar:
+  /api/registrar:
     post:
       summary: Registrar usuário administrador
       description: Cria um dado de usuário administrador com privilégios de consultas no sistema.

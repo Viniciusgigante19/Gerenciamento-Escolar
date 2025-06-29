@@ -18,7 +18,7 @@ components:
       bearerFormat: JWT
 
 paths:
-  /mensalidade:
+  /api/mensalidade:
     post:
       summary: Retorna as mensalidades de um aluno para um determinado ano
       description: Busca um aluno pelo nome e retorna todas as mensalidades associadas a ele dentro do ano especificado.
@@ -72,7 +72,8 @@ paths:
           description: Aluno não encontrado
         '500':
           description: Erro interno no servidor
-  /mensalidade/buscar:
+
+  /api/mensalidade/buscar:
     post:
       summary: Busca mensalidades de um aluno filtrando por ano e status
       description: Retorna mensalidades de um aluno em um ano específico. Pode filtrar também por status: Pendente, Pago ou Atrasado.
@@ -90,7 +91,7 @@ paths:
               properties:
                 nome:
                   type: string
-                  example: João da Silva
+                  example: João Silva
                 ano:
                   type: integer
                   example: 2025
@@ -130,7 +131,8 @@ paths:
           description: Aluno não encontrado
         '500':
           description: Erro interno ao buscar mensalidades
-  /mensalidade/valor:
+
+  /api/mensalidade/valor:
     put:
       summary: Atualiza o valor do curso com base no ano da turma e plano de pagamento
       description: Permite atualizar o valor do curso para um determinado ano e plano de pagamento. Se o plano não for informado, atualiza todos os registros daquele ano.
@@ -173,7 +175,8 @@ paths:
           description: Nenhum registro encontrado para atualização
         '500':
           description: Erro interno ao atualizar valores do curso
-  /mensalidade/valores/curso:
+
+  /api/mensalidade/valores/curso:
     get:
       summary: Lista os valores de curso por ano e plano de pagamento
       description: Retorna os valores cadastrados para cada ano de turma e plano de pagamento (mensal, trimestral, anual).
