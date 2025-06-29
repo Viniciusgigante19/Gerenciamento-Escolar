@@ -13,7 +13,8 @@ Este projeto tem como objetivo o desenvolvimento de um **sistema de gerenciament
 A plataforma permite que **alunos, pais e funcionários** acessem informações essenciais como:
 
 - 📌 Matrícula dos alunos  
-- 🕒 Horários das aulas  
+- Monitoramento de Presenças
+- Atividades escolares
 - 💰 Faturas  
 
 ## 🛠️ Tecnologias Utilizadas
@@ -29,27 +30,40 @@ Siga os passos abaixo para clonar e executar o projeto localmente:
 
 ### 1. Clonar o repositório
 
+    LEMBRE-SE DE CLONAR USANDO HTTPS E NÃO SSH.
+
 ```bash
-git clone https://github.com/Viniciusgigante1/Gerenciamento-Escolar
+git clone https://github.com/Viniciusgigante19/Gerenciamento-Escolar.git
 ```
 
 ### 2. acessar a pasta do projeto
 ```bash
 cd Gerenciamento-Escolar
 ```
+### 3. troque o nome do arquivo de variaveis:
+Substitua o nome o arquivo (.env.example) por => (.env)
+isso fará ele utilizar as variaveis de ambiente.
 
-### 3. Subir os containers com o Docker
+### 4. Nomeie as variaveis faltantes:
+Dentro do arquivo (.env) nomeado por você corretamente você verá
+as variáveis de ambiente e complete as que estão faltando:
+
+
+--
+    POSTGRES_USER=meu_usuario
+    POSTGRES_PASSWORD=minha_senha
+    JWT_SECRET=super_secreta
+--
+
+
+### 5. Subir os containers com o Docker
 ```bash
-docker compose up --build -d
-```
-caso o comando acima nao funcione, tente:
-```bash
-docker-compose up --build -d
+docker compose up --build 
 ```
 
-### 4. Acessar a aplicação
-Abra o navegador e acesse :
-http://localhost:3000
+### 6. Acessar o SWAGGER:
+Abra o navegador e acesse:
+http://localhost:8080/api-docs/  
 
 ### Acessar o conteiner POSTGRES :
 ```sh
