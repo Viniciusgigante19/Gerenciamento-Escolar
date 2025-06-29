@@ -5,7 +5,7 @@ info:
   description: Documentação da API escolar para alunos, atividades, presenças e pagamentos
 
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:8080
 
 security:
   - bearerAuth: []

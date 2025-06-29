@@ -19,8 +19,8 @@ services:
       context: .
       dockerfile: docker/node/Dockerfile
     container_name: node-app
-    ports:
-      - "${NODE_PORT}:${NODE_PORT}"
+    # ports:
+    #   - "${NODE_PORT}:${NODE_PORT}"
     env_file:
       - .env
     depends_on:
@@ -29,7 +29,18 @@ services:
       - ./storage/documents:/usr/src/app/storage/documents
     networks:
       - app-network
-
+  
+  nginx:
+    build:
+      context: ./docker/nginx
+    container_name: nginx-proxy
+    ports:
+      - "8080:80"
+    depends_on:
+      - node-app
+    networks:
+      - app-network          
+      
 volumes:
   pgdata:
 

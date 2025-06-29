@@ -20,7 +20,7 @@ async function startServer() {
         await runSeeds(); // Executa os seeds do banco de dados
 
         const app = express(); 
-
+        app.set('trust proxy', true);
         app.use(express.json());
 
         app.use("/", routes);
@@ -30,11 +30,12 @@ async function startServer() {
         
         const webPort = process.env.PORT || 3000;
         const nodePort = process.env.NODE_PORT || webPort;
-
-        app.listen(nodePort, () => {
-            console.log(chalk.green(`Servidor: http://localhost:${webPort}`));
-            console.log(chalk.red(`Swagger: http://localhost:3000/api-docs`));
+            
+        app.listen(nodePort, '0.0.0.0', () => {
+        console.log(chalk.green(`Servidor ouvindo em 0.0.0.0:${nodePort}`));
+        console.log(chalk.red(`Swagger via Nginx: http://localhost:8080/api-docs/`));
         });
+
     } catch (error) {
         console.error(chalk.red('Error starting the server:'), error);
         process.exit(1);

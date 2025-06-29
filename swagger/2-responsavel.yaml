@@ -5,7 +5,7 @@ info:
   description: Documentação da API para gerenciamento dos responsáveis financeiros dos alunos.
 
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:8080
 
 security:
   - bearerAuth: []
