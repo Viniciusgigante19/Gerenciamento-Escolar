@@ -8,17 +8,14 @@ import { Router } from "express";
 
 const router = Router();
 
-router.post('/aluno/buscar', getAluno); //Busca aluno ou pelo nome ou pelo id 
+router.post('/aluno/buscar', getAluno); 
 
-router.get('/aluno/alunos',getTodosAlunos); //Retorna todos os alunos 
+router.get('/aluno/alunos',getTodosAlunos); 
 
-router.get('/alunos/turma/:ano/:classe', getAlunoByTurma); //Busca alunos por turma 
-// http://localhost:3000/api/alunos/turma/3/c
+router.get('/alunos/turma/:ano/:classe', getAlunoByTurma);
 
-router.put('/aluno/:id', updateAluno); //Atualiza os dados do aluno 
+router.put('/aluno/:id', updateAluno);
 
 router.post('/aluno', insertAluno);  
-//Insere um novo aluno, se ele tiver responsavel financeiro este
-// ja deve estar cadastrado no banco de dados antes do aluno! 
 
 export default router;
